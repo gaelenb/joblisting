@@ -7,6 +7,7 @@ A sample job listing board with some simple functionality [Schooner Strategies](
 - Clone the repo
 - Create a database and use .env.example to make a .env file
 - Run `composer update` to install wp, the theme, and the plugins
+- Run `wp core install --url={url} --title={title} --admin_user={user} --admin_email={email}`
 - Run `wp theme activate joblisting` to activate the theme
 - Generate some jobs with `wp generate_job_posts --count=150`
 
