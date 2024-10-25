@@ -11,6 +11,7 @@ import JobListing from './components/JobListing.vue';
 import JobSearch from './components/JobSearch.vue';
 import JobFilters from './components/JobFilters.vue';
 import JobDisplay from './components/JobDisplay.vue';
+import JobPagination from './components/JobPagination.vue';
 
 // register & mount components
 const app = createApp({});
@@ -19,6 +20,7 @@ app.component('job-listing', JobListing);
 app.component('job-search', JobSearch);
 app.component('job-filters', JobFilters);
 app.component('job-display', JobDisplay);
+app.component('job-pagination', JobPagination);
 
 // mount
 if( $('#app').length )

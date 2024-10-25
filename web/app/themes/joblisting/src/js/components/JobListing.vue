@@ -1,12 +1,23 @@
 <template>
     <section class="job-listing">
-        <job-search @search="search"></job-search>
+        <job-search
+            :job_locations="job_locations"
+            :job_categories="job_categories"
+            @search="search">
+        </job-search>
 
         <div class="category-info">    
             <div class="row">
-                <job-filters></job-filters>
 
-                <job-display :job_posts="jobPosts"></job-display>
+                <div class="col-md-3 col-sm-4">
+                    <job-filters></job-filters>
+                </div>
+
+                <div class="col-sm-8 col-md-9 section">             
+                    <job-display :job_posts="displayedJobPosts" :total_job_posts="totalJobPosts"></job-display>
+                    <job-pagination></job-pagination>
+                </div>
+
             </div>    
         </div>
     </section>
@@ -14,20 +25,42 @@
 
 <script>
     export default {
-        props: ['job_posts'],
+        props: ['queried_job_posts', 'queried_job_locations', 'queried_job_categories'],
         data() {
             return {
-                jobPosts: []
+                job_posts: [],
+                job_locations: [],
+                job_categories: [],
+                page: 1,
+                page_offset: 1,
+                posts_per_page: 20,
+
             }
         },
         created() {
-            this.jobPosts = this.deepClone(this.job_posts); // so we arent mutating a prop directly
+            this.job_posts = this.deepClone(this.queried_job_posts); // so we arent mutating a prop directly
+            this.job_locations = this.deepClone(this.queried_job_locations);
+            this.job_categories = this.deepClone(this.queried_job_categories);
+        },
+        computed: {
+            pages() {
+                return Math.ceil(this.job_posts / this.posts_per_page);
+            },
+            totalJobPosts() {
+                return this.job_posts.length
+            },
+            // need to know how many job posts there are 
+            // if it is greater than 20 we're going to paginate
+            // start with the first 20 jobs in job_posts
+            displayedJobPosts() {
+                return this.job_posts.slice(this.page - 1, 20)
+            }
         },
         methods: {
             search(filters) {
                 $.ajax({
                     url: localized.resturl + '/jobpost/job-posts',
-                    method: 'GET',
+                    method: 'POST',
                     beforeSend: function(xhr){
                         xhr.setRequestHeader('X-WP-Nonce', localized.restnonce);
                     },
@@ -35,13 +68,16 @@
                     data: { search: filters },
                     success: (result) => {
                         if (result.success) {
-                            this.jobPosts = result.data;
+                          console.log('success')
+                            this.job_posts = result.data;
                         } else {
-                            alert(result.message);
+                            console.log('no jobs')
+                            this.job_posts = result.data;
                         }
                     },
                     error: function(result) {
-                        alert('error fetching job posts');
+                        console.log('error')
+                        console.log(result.data);
                     },
                 });
             },

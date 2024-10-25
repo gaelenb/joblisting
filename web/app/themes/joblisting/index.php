@@ -19,7 +19,9 @@
 
 			<div id="app">
 				<job-listing
-					:job_posts='<?= json_vue_prop($view_data['job_posts']); ?>'
+					:queried_job_posts='<?= json_vue_prop($view_data['job_posts']); ?>'
+                    :queried_job_locations='<?= json_vue_prop($view_data['job_locations']); ?>'
+                    :queried_job_categories='<?= json_vue_prop($view_data['job_categories']); ?>'
 				></job-listing>
 			</div>
 		</div><!-- container -->

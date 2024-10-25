@@ -60,7 +60,7 @@ input:focus, textarea:focus, select:focus, .form-control:focus {
 	box-shadow:none;
 	-webkit-box-shadow:none;
 	border: 1px solid #e3e3e3;
-	height:44px;
+	height: 48px;
 	color:#000;
 }
 
