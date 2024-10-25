@@ -9,6 +9,7 @@ Class JobPost extends ACFModel {
     public $title;
     public $category;
     public $permalink;
+    public $date_created;
     public $salary;
     public $employment_type;
     public $experience_level;
@@ -20,8 +21,9 @@ Class JobPost extends ACFModel {
     function __construct($post_id) {
         $this->id = $post_id;
         $this->title = $this->get_title();
-        $this->category = $this->get_category();
+        $this->date_created = $this->get_date_created();
         $this->permalink = $this->get_permalink();
+        $this->category = $this->get_category();
         $this->salary = get_field('salary', $this->id);
         $this->employment_type = get_field('employment_type', $this->id);
         $this->experience_level = get_field('experience_level', $this->id);

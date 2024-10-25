@@ -51,7 +51,7 @@ Class ACFModel {
     }
 
     public function get_date_created() {
-        return get_the_date( \Config::$casp_date_format, $this->id );
+        return get_the_date( "F j, Y", $this->id );
     }
 
     public function get_author() {

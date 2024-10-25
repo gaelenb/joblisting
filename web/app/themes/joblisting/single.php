@@ -13,41 +13,23 @@
             <ol class="breadcrumb">
                 <li><a href="<?= get_home_url(); ?>">Home</a></li>
                 <li><a href="#">Techinical</a></li>
-            </ol><!-- breadcrumb -->						
-            <h2 class="title">
-                <?= esc_html( $view_data['job_post']->category ); ?>
-            </h2>
+            </ol><!-- breadcrumb -->
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-8"><h2 class="title">
+                        <?= esc_html( $view_data['job_post']->category ); ?>
+                    </h2></div>
+                <div class="col-xs-6 col-md-4">
+                        <!--using home url for now since that takes you back to the search page.-->
+                    <a href="<?= get_home_url(); ?>" class="btn btn-info pull-right">
+                        <!--for now I'm using inline styles. I would need to import utility classes that were implemented in later
+                            versions of bootstrap like mr-3 to mantain sanity in this project lol-->
+                        <i style="margin-right: 10px;" class="fa fa-backward" aria-hidden="true"></i>Back
+                    </a>
+                </div>
+            </div>
+
+
         </div><!-- breadcrumb -->
-
-        <div class="banner-form banner-form-full job-list-form">
-            <form action="#">
-                <!-- category-change -->
-                <div class="dropdown category-dropdown">						
-                    <a data-toggle="dropdown" href="#"><span class="change-text">Job Category</span> <i class="fa fa-angle-down"></i></a>
-                    <ul class="dropdown-menu category-change">
-                        <li><a href="#">Customer Service</a></li>
-                        <li><a href="#">Software Engineer</a></li>
-                        <li><a href="#">Program Development</a></li>
-                        <li><a href="#">Project Manager</a></li>
-                        <li><a href="#">Graphics Designer</a></li>
-                    </ul>								
-                </div><!-- category-change -->
-                
-                <!-- language-dropdown -->
-                <div class="dropdown category-dropdown language-dropdown">
-                    <a data-toggle="dropdown" href="#"><span class="change-text">Job Location</span> <i class="fa fa-angle-down"></i></a>
-                    <ul class="dropdown-menu category-change language-change">
-                        <li><a href="#">Location 1</a></li>
-                        <li><a href="#">Location 2</a></li>
-                        <li><a href="#">Location 3</a></li>
-                    </ul>								
-                </div><!-- language-dropdown -->
-            
-                <input type="text" class="form-control" placeholder="Type your key word">
-                <button type="submit" class="btn btn-primary" value="Search">Search</button>
-            </form>
-        </div><!-- banner-form -->
-
         <div class="job-details">
             <div class="section job-ad-item">
                 <div class="item-info">
@@ -92,13 +74,13 @@
                         <div class="section job-short-info">
                             <h1>Short Info</h1>
                             <ul>
-                                <li><span class="icon"><i class="fa fa-bolt" aria-hidden="true"></i></span>Posted: ______________</li>
+                                <li><span class="icon"><i class="fa fa-bolt" aria-hidden="true"></i></span>Posted: <?= esc_html( $view_data['job_post']->date_created ); ?></li>
                             </ul>
                         </div>
                         <div class="section company-info">
                             <h1>Company Info</h1>
                             <ul>
-                                <li>Compnay Name: <a href="#">______________</a></li>
+                                <li>Compnay Name: <a href="#"><?= esc_html( $view_data['job_post']->company ); ?></a></li>
                             </ul>								
                         </div>
                     </div>
