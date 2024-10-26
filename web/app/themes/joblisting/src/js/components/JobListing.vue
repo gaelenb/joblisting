@@ -66,7 +66,7 @@
             search(filters) {
                 $.ajax({
                     url: localized.resturl + '/jobpost/job-posts',
-                    method: 'POST',
+                    method: 'GET',
                     beforeSend: function(xhr){
                         xhr.setRequestHeader('X-WP-Nonce', localized.restnonce);
                     },

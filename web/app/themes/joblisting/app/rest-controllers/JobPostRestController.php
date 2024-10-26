@@ -16,7 +16,7 @@ class JobPostRestController extends WP_REST_Controller {
         */
         register_rest_route( $this->namespace, '/' . $this->resource_name . '/job-posts' , [
             [
-                'methods'   => 'POST',
+                'methods'   => 'GET',
                 'callback'  => array( $this, 'get_job_posts' ),
                 'permission_callback' => array( $this, 'user_permissions_check' ),
             ]
@@ -72,8 +72,7 @@ class JobPostRestController extends WP_REST_Controller {
      */
     public function get_job_posts(WP_REST_Request $request ): array
     {
-        $filters = $request->get_body_params()['search'];
-
+        $filters = $request->get_query_params()['search'];
         $job_posts = JobPost::getResults($filters);
         $success = !empty($job_posts ? true : false);
 
