@@ -19,17 +19,8 @@ Class JobPostController {
     public function index() {
         $posts = JobPost::getAll();
 
-        $job_locations = array_filter(array_unique(array_map(function($job) {
-            return $job->location;
-        }, $posts)));
-        $job_categories = array_filter(array_unique(array_map(function($job) {
-            return $job->category;
-        }, $posts)));
-
         return [
             'job_posts' => $posts,
-            'job_locations' => $job_locations,
-            'job_categories'=> $job_categories,
 
         ];
     }

@@ -25,7 +25,7 @@
 
 <script>
     export default {
-        props: ['queried_job_posts', 'queried_job_locations', 'queried_job_categories'],
+        props: ['queried_job_posts'],
         data() {
             return {
                 job_posts: [],
@@ -39,8 +39,14 @@
         },
         created() {
             this.job_posts = this.deepClone(this.queried_job_posts); // so we arent mutating a prop directly
-            this.job_locations = this.deepClone(this.queried_job_locations);
-            this.job_categories = this.deepClone(this.queried_job_categories);
+
+            this.job_categories = [... new Set(
+                    this.job_posts.map(job_post => job_post.category))
+                ].filter(category => category);
+
+            this.job_locations = [... new Set(
+                    this.job_posts.map(job_post => job_post.location))
+                ].filter(location => location);
         },
         computed: {
             pages() {
@@ -68,10 +74,9 @@
                     data: { search: filters },
                     success: (result) => {
                         if (result.success) {
-                          console.log('success')
                             this.job_posts = result.data;
                         } else {
-                            console.log('no jobs')
+
                             this.job_posts = result.data;
                         }
                     },
