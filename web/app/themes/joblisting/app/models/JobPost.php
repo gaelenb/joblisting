@@ -55,20 +55,22 @@ Class JobPost extends ACFModel {
      * @return array An array of JobPost objects.
      */
     public static function getResults(Array $filters) {
+        $keyword = sanitize_text_field($filters['keyword']);
+        $location = sanitize_text_field($filters['location']);
+        $category = sanitize_text_field($filters['category']);
         $args = array(
             'posts_per_page'    => -1,
             'post_type'     => static::POST_TYPE,
             'post_status'   => 'publish',
         );
-        if ($filters['keyword'] !== "")    $args['s']             = $filters['keyword'];
-        if ($filters['category'] !== "-1") $args['category_name'] = $filters['category'];
-        if ($filters['location'] !== "-1") $args['meta_query']    = [
+        if ($keyword !== "")    $args['s']             = $keyword;
+        if ($category !== "-1") $args['category_name'] = $category;
+        if ($location !== "-1") $args['meta_query']    = [
             array(
                 'key'       => 'location',
-                'value'     => $filters['location'],
+                'value'     => $location,
                 'compare'   => '='
             )];
-
         $posts = get_posts($args);
         return array_map(function($post) {
             return new Self($post->ID);
